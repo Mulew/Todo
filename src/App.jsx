@@ -1,10 +1,10 @@
 import React from 'react'
-
+import Tasks from './Tasks'
 function App() {
 
   return (
     <>
-      <h1>Hello Muluken</h1>
+      <Tasks/>
     </>
   )
 }

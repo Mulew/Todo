@@ -19,13 +19,15 @@ const Tasks = () => {
     setTasks(newtasks);
   }
 
-  const handleedit = (idx) => {
-    const oldvalue=tasks.filter((ttask,index)=>index===idx);
-    setTask(oldvalue);
-    const newvalue=task;
-    tasks[idx]=newvalue;
-  }
-
+//   const handleEdit = (idx) => {
+//     const updatedTasks = [...tasks];
+//     const oldvalue = tasks.filter((ttask, index) => index === idx)[0];
+//     const newvalue = task;
+  
+//     updatedTasks[idx] = newvalue;
+//     setTasks(updatedTasks);
+//     setTask(''); // Move this line here to reset the task input field after updating the task
+//   };
 
   return (
     <div className="container">
@@ -45,7 +47,7 @@ const Tasks = () => {
               <th scope="row">{index}</th>
               <td>{task}</td>
               <td>
-                <button onClick={()=>handleedit(index)}  className="btn btn-primary me-2" style={{ backgroundColor: '#FFC107', color: '#000000' }}>Edit</button>
+                {/* <button onClick={()=>handleEdit(index)}  className="btn btn-primary me-2" style={{ backgroundColor: '#FFC107', color: '#000000' }}>Edit</button> */}
                 <button onClick={()=>handledelete(index)} className="btn btn-danger" style={{ backgroundColor: '#F44336', color: '#FFFFFF' }}>Delete</button>
               </td>
             </tr>

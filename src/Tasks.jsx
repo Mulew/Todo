@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+    return storedTasks || [];
+  });
   const [task, setTask] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTasks([...tasks, task]);
+    const newTasks = [...tasks, task];
+    setTasks(newTasks);
+    localStorage.setItem('tasks', JSON.stringify(newTasks));
     setTask('');
   };
 
@@ -14,25 +19,16 @@ const Tasks = () => {
     setTask(e.target.value);
   };
 
-  const handledelete = (idx) =>{
-    const newtasks=tasks.filter((ttask,index)=>index!==idx);
-    setTasks(newtasks);
-  }
-
-//   const handleEdit = (idx) => {
-//     const updatedTasks = [...tasks];
-//     const oldvalue = tasks.filter((ttask, index) => index === idx)[0];
-//     const newvalue = task;
-  
-//     updatedTasks[idx] = newvalue;
-//     setTasks(updatedTasks);
-//     setTask(''); // Move this line here to reset the task input field after updating the task
-//   };
+  const handleDelete = (idx) => {
+    const newTasks = tasks.filter((_, index) => index !== idx);
+    setTasks(newTasks);
+    localStorage.setItem('tasks', JSON.stringify(newTasks));
+  };
 
   return (
     <div className="container">
       <h1 className="text-center mt-5 mb-4">Tasks &nbsp;[{tasks.length}]</h1>
-      <hr/>
+      <hr />
       <table className="table">
         <thead>
           <tr>
@@ -48,7 +44,7 @@ const Tasks = () => {
               <td>{task}</td>
               <td>
                 {/* <button onClick={()=>handleEdit(index)}  className="btn btn-primary me-2" style={{ backgroundColor: '#FFC107', color: '#000000' }}>Edit</button> */}
-                <button onClick={()=>handledelete(index)} className="btn btn-danger" style={{ backgroundColor: '#F44336', color: '#FFFFFF' }}>Delete</button>
+                <button onClick={() => handleDelete(index)} className="btn btn-danger" style={{ backgroundColor: '#F44336', color: '#FFFFFF' }}>Delete</button>
               </td>
             </tr>
           ))}
